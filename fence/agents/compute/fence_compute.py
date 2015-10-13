@@ -123,7 +123,7 @@ def set_power_status(_, options):
 			#
 			# Some callers (such as Pacemaker) will have a timer
 			# running and kill us if necessary
-			logging.debug("Waiting for nova to update it's internal state")
+			logging.debug("Waiting for nova to update its internal state")
 			time.sleep(1)
 
 	if options["--no-shared-storage"] != "False":
