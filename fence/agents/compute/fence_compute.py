@@ -75,6 +75,9 @@ def _evacuate_compute_hosts(host, on_shared_storage):
 	return response
 
 def set_attrd_status(host, status, options):
+	if host.startswith("remote-"):
+		logging.debug("Stripping remote- prefix from %s" % host)
+		host = host[7:]
 	logging.debug("Setting fencing status for %s to %s" % (host, status))
 	run_command(options, "attrd_updater -p -n evacuate -Q -N %s -v %s" % (host, status))
 
