@@ -52,6 +52,8 @@ def _evacuate_instance(server, on_shared_storage):
 	success = True
 	error_message = ""
 	try:
+		logging.debug("evacuating %s (shared storage %s)" %
+			      (server['uuid'], on_shared_storage))
 		nova.servers.evacuate(server=server['uuid'], on_shared_storage=on_shared_storage)
 	except Exception as e:
 		success = False
@@ -70,6 +72,7 @@ def _evacuate_compute_hosts(host, on_shared_storage):
 		if hasattr(hyper, 'servers'):
 			for server in hyper.servers:
 				response.append(_evacuate_instance(server, on_shared_storage))
+	return response
 
 def set_attrd_status(host, status, options):
 	logging.debug("Setting fencing status for %s to %s" % (host, status))
@@ -139,7 +142,8 @@ def set_power_status(_, options):
 	else:
 		on_shared_storage = True
 
-	_evacuate_compute_hosts(options["--plug"], on_shared_storage)
+	response = _evacuate_compute_hosts(options["--plug"], on_shared_storage)
+	logging.debug("evacuation response: %s" % repr(response))
 	return
 
 def get_plugs_list(_, options):
