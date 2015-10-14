@@ -76,7 +76,7 @@ def _evacuate_compute_hosts(host, on_shared_storage):
 
 def set_attrd_status(host, status, options):
 	logging.debug("Setting fencing status for %s to %s" % (host, status))
-	run_command(options, "attrd_updater -p -n evacute -Q -N %s -v %s" % (host, status))
+	run_command(options, "attrd_updater -p -n evacuate -Q -N %s -v %s" % (host, status))
 
 def set_power_status(_, options):
 	global override_status
