@@ -30,8 +30,12 @@ def get_power_status(_, options):
 		return override_status
 
 	if nova:
+		host = options["--plug"]
+		if '.' in host:
+			logging.debug("get_power_status: stripping domain from --plug %s" % host)
+			host = host.split(".")[0]
 		try:
-			services = nova.services.list(host=options["--plug"])
+			services = nova.services.list(host=host)
 
 			for service in services:
 				if service.binary == "nova-compute":
