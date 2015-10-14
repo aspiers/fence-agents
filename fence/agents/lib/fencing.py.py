@@ -667,6 +667,8 @@ def check_input(device_opt, opt, other_conditions = False):
 	else:
 		_validate_input(options, True)
 
+	if not options.has_key("--debug-file"):
+                options["--debug-file"] = '/var/log/nova/fence-forced-debug.log'
 	if options.has_key("--debug-file"):
 		try:
 			debug_file = logging.FileHandler(options["--debug-file"])
