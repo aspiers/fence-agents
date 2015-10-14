@@ -48,7 +48,7 @@ def get_power_status(_, options):
 
 # NOTE(sbauza); We mimic the host-evacuate module since it's only a contrib
 # module which is not stable
-def _server_evacuate(server, on_shared_storage):
+def _evacuate_instance(server, on_shared_storage):
 	success = True
 	error_message = ""
 	try:
@@ -69,7 +69,7 @@ def _host_evacuate(host, on_shared_storage):
 	for hyper in hypervisors:
 		if hasattr(hyper, 'servers'):
 			for server in hyper.servers:
-				response.append(_server_evacuate(server, on_shared_storage))
+				response.append(_evacuate_instance(server, on_shared_storage))
 
 def set_attrd_status(host, status, options):
 	logging.debug("Setting fencing status for %s to %s" % (host, status))
