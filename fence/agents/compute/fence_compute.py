@@ -122,12 +122,16 @@ def set_power_status(_, options):
 
 		# need to wait for nova to update its internal status or we
 		# cannot call host-evacuate
-		while get_power_status(_, options) != "off":
-			# Loop forever if need be.
-			#
+		while True:       # Loop forever if need be.
+			status = get_power_status(_, options)
+			if status == "off":
+				break
+
 			# Some callers (such as Pacemaker) will have a timer
 			# running and kill us if necessary
-			logging.debug("Waiting for nova to update its internal state")
+			logging.debug("Waiting for nova to update its internal "
+				      "state for %s (currently %s)" %
+				      (options["--plug"], status))
 			time.sleep(1)
 
 	if options["--no-shared-storage"] != "False":
