@@ -63,7 +63,7 @@ def _evacuate_instance(server, on_shared_storage):
 		"error_message": error_message,
 		}
 
-def _host_evacuate(host, on_shared_storage):
+def _evacuate_compute_hosts(host, on_shared_storage):
 	hypervisors = nova.hypervisors.search(host, servers=True)
 	response = []
 	for hyper in hypervisors:
@@ -139,7 +139,7 @@ def set_power_status(_, options):
 	else:
 		on_shared_storage = True
 
-	_host_evacuate(options["--plug"], on_shared_storage)
+	_evacuate_compute_hosts(options["--plug"], on_shared_storage)
 	return
 
 def get_plugs_list(_, options):
