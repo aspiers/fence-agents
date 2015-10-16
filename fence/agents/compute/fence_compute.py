@@ -163,7 +163,7 @@ def get_plugs_list(_, options):
 			if options["--action"] == "list" and options["--domain"] != "":
 				shorthost = longhost.replace("." + options["--domain"],
                                                  "")
-				result[shorthost] = ("", None)
+				result['remote-' + shorthost] = ("", None)
 			else:
 				result[longhost] = ("", None)
 	return result
