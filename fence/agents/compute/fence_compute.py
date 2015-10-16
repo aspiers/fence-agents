@@ -258,7 +258,6 @@ def main():
 
 	if options["--record-only"] != "False":
 		if options["--action"] == "on":
-			set_attrd_status(options["--plug"], "no", options)
 			sys.exit(0)
 
 		elif options["--action"] in ["off", "reboot"]:
